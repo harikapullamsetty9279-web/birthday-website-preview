@@ -1,190 +1,531 @@
 import { useState, useEffect, useRef } from "react";
-
-// STICKERS
+import dreamyMusic from "../assets/music/dreamy.mp3";
+import sittingTogether from "../assets/stickers/sitting_together-removebg-preview.png";
 import huggingSticker from "../assets/stickers/hugging-removebg-preview.png";
-import sittingSticker from "../assets/stickers/sitting_together-removebg-preview.png";
 
-// MUSIC
-import bgMusic from "../assets/music/dreamy.mp3";
+function Home() {
+  const navigateBlocked = () => {
+    setShowPreparing(true);
+  };
 
-export default function Home() {
-  const [showMessage, setShowMessage] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const targetDate = new Date("2026-05-18T00:00:00").getTime();
 
-  // AUDIO
-  const audio = useRef(new Audio(bgMusic));
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+  const [musicPlaying, setMusicPlaying] = useState(true);
+  const [showPreparing, setShowPreparing] = useState(false);
 
+  // FLOW STATES
+  const [showCountdown, setShowCountdown] = useState(false);
+  const [showMainContent, setShowMainContent] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+  const [showStickers, setShowStickers] = useState(false);
+
+  const audioRef = useRef(new Audio(dreamyMusic));
+
+  // COUNTDOWN
   useEffect(() => {
-    audio.current.loop = true;
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+      );
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds });
+    };
+
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(timer);
+  }, [targetDate]);
+
+  // PAGE FLOW
+  useEffect(() => {
+    setTimeout(() => setShowCountdown(true), 300);
+    setTimeout(() => setShowMainContent(true), 1400);
+    setTimeout(() => setShowButtons(true), 2400);
+    setTimeout(() => setShowStickers(true), 3200);
   }, []);
 
+  // Music
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.4;
+
+      const playMusic = async () => {
+        try {
+          await audioRef.current.play();
+          setIsPlaying(true);
+        } catch (error) {
+          console.log("Autoplay blocked until user interaction");
+        }
+      };
+
+      playMusic();
+
+      const startMusicOnFirstClick = async () => {
+        if (audioRef.current && audioRef.current.paused) {
+          try {
+            await audioRef.current.play();
+            setIsPlaying(true);
+          } catch (err) {
+            console.log(err);
+          }
+        }
+
+        document.removeEventListener("click", startMusicOnFirstClick);
+      };
+
+      document.addEventListener("click", startMusicOnFirstClick);
+
+      return () => {
+        document.removeEventListener("click", startMusicOnFirstClick);
+      };
+    }
+  }, []);
+
+  // MUSIC
   const toggleMusic = () => {
-    if (isPlaying) {
-      audio.current.pause();
-      setIsPlaying(false);
+    if (musicPlaying) {
+      audioRef.current.pause();
+      setMusicPlaying(false);
     } else {
-      audio.current.play();
-      setIsPlaying(true);
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.5;
+      audioRef.current.play();
+      setMusicPlaying(true);
     }
   };
 
-  // COUNTDOWN
-  const targetDate = new Date("2026-05-18T00:00:00").getTime();
-
-  const calculateTimeLeft = () => {
-    const now = new Date().getTime();
-    const difference = targetDate - now;
-
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-    );
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    return { days, hours, minutes, seconds };
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
   return (
-    <div className="min-h-screen overflow-hidden px-4 relative bg-gradient-to-b from-pink-100 to-purple-100 flex flex-col items-center text-center">
-      {/* TOP LEFT EMOJI */}
-      <div className="absolute top-16 left-10 text-3xl">💖</div>
-
-      {/* TOP RIGHT SPARKLE */}
-      <div className="absolute top-28 right-10 text-2xl">✨</div>
-
-      {/* BOTTOM LEFT BUTTERFLY */}
-      <div className="absolute bottom-20 left-14 text-2xl">🦋</div>
-
-      {/* BOTTOM RIGHT FLOWER */}
-      <div className="absolute bottom-24 right-14 text-2xl">🌸</div>
-
-      {/* HUGGING STICKER */}
-      <img
-        src={huggingSticker}
-        alt="hugging sticker"
-        className="absolute top-24 left-32 md:left-72 w-20 md:w-36 rotate-[-8deg] drop-shadow-xl pointer-events-none"
-      />
-
-      {/* SITTING STICKER */}
-      <img
-        src={sittingSticker}
-        alt="cute sticker"
-        className="absolute bottom-28 right-36 md:right-[420px] w-24 md:w-40 drop-shadow-xl pointer-events-none"
-      />
-
-      {/* COUNTDOWN SECTION */}
-      <div className="mt-24 z-10">
-        <h1 className="text-3xl md:text-5xl font-bold text-pink-500">
-          Counting down to my special day 🎂💖
-        </h1>
-
-        <p className="mt-2 text-gray-600 text-base md:text-2xl">
-          ...and a little surprise made with love ✨
-        </p>
-
-        {/* COUNTDOWN BOXES */}
-        <div className="flex flex-wrap justify-center gap-4 mt-8">
-          <div className="bg-white/70 shadow-xl rounded-3xl px-6 py-5 w-24">
-            <h2 className="text-5xl font-bold text-pink-500">
-              {timeLeft.days}
-            </h2>
-            <p className="text-gray-600 mt-2">Days</p>
-          </div>
-
-          <div className="bg-white/70 shadow-xl rounded-3xl px-6 py-5 w-24">
-            <h2 className="text-5xl font-bold text-pink-500">
-              {timeLeft.hours}
-            </h2>
-            <p className="text-gray-600 mt-2">Hours</p>
-          </div>
-
-          <div className="bg-white/70 shadow-xl rounded-3xl px-6 py-5 w-24">
-            <h2 className="text-5xl font-bold text-pink-500">
-              {timeLeft.minutes}
-            </h2>
-            <p className="text-gray-600 mt-2">Minutes</p>
-          </div>
-
-          <div className="bg-white/70 shadow-xl rounded-3xl px-6 py-5 w-24">
-            <h2 className="text-5xl font-bold text-pink-500">
-              {timeLeft.seconds}
-            </h2>
-            <p className="text-gray-600 mt-2">Seconds</p>
-          </div>
-        </div>
-      </div>
-
-      {/* MAIN CONTENT */}
-      <div className="flex flex-col items-center justify-center mt-20 z-10">
-        <div className="text-4xl mb-6">💌</div>
-
-        <h1
-          className="text-5xl md:text-8xl text-pink-500"
-          style={{
-            fontFamily: "cursive",
-            textShadow: "0 4px 15px rgba(255,105,180,0.4)",
-          }}
-        >
-          Hey birthday boyyy
-        </h1>
-
-        <div className="text-5xl mt-6">🎂💖</div>
-
-        <p className="mt-14 text-xl md:text-3xl text-gray-700">
-          I made something really special for you...
-        </p>
-
-        <p className="mt-4 text-xl md:text-3xl text-gray-700">
-          Wanna see it? ✨
-        </p>
-
-        {/* BUTTONS */}
-        <div className="flex flex-col md:flex-row gap-4 justify-center items-center mt-14">
-          <button
-            onClick={() => setShowMessage(true)}
-            className="bg-pink-500 hover:bg-pink-600 text-white px-10 py-4 rounded-full text-xl shadow-lg transition-all"
-          >
-            Yes, show me 💖
-          </button>
-
-          <button
-            onClick={() => setShowMessage(true)}
-            className="bg-white border-2 border-pink-300 hover:bg-pink-50 text-pink-500 px-10 py-4 rounded-full text-xl shadow-lg transition-all"
-          >
-            Nope 😌
-          </button>
-        </div>
-
-        {/* TEMP MESSAGE */}
-        {showMessage && (
-          <p className="mt-8 text-pink-500 text-lg md:text-xl animate-pulse font-medium">
-            Preparing your surprise... 💖✨
-          </p>
-        )}
-
-        <p className="mt-8 text-gray-500 italic text-sm md:text-lg mb-20">
-          (Choosing NO may have consequences 😉)
-        </p>
-      </div>
-
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(to bottom, #fbe4ec, #f3ddff)",
+        backgroundBlendMode: "soft-light",
+        overflow: "hidden",
+        position: "relative",
+        padding: "40px 20px 90px",
+        fontFamily: "Poppins, sans-serif",
+      }}
+    >
       {/* MUSIC BUTTON */}
+
       <button
         onClick={toggleMusic}
-        className="fixed top-6 right-6 bg-white shadow-xl px-5 py-4 rounded-full text-lg z-50"
+        style={{
+          position: "fixed",
+          top: window.innerWidth < 768 ? "18px" : "32px",
+          right: window.innerWidth < 768 ? "18px" : "20px",
+          padding: window.innerWidth < 768 ? "12px 18px" : "12px 20px",
+          borderRadius: "30px",
+          border: "none",
+          background: "white",
+          boxShadow: "0 6px 18px rgba(0,0,0,0.12)",
+          cursor: "pointer",
+          fontSize: window.innerWidth < 768 ? "15px" : "16px",
+          zIndex: 999,
+        }}
       >
-        {isPlaying ? "🎵 Music On" : "🔇 Music Off"}
+        {musicPlaying ? "🎵 Music On" : "🔇 Music Off"}
       </button>
+
+      {/* STICKERS */}
+
+      {showStickers && (
+        <>
+          {/* TOP LEFT HUGGING */}
+          <img
+            src={huggingSticker}
+            alt="hugging sticker"
+            style={{
+              position: "absolute",
+              top: window.innerWidth < 768 ? "145px" : "135px",
+              left: window.innerWidth < 768 ? "28px" : "260px",
+              width: window.innerWidth < 768 ? "72px" : "125px",
+              zIndex: 2,
+              animation: "floatIn 1.5s ease forwards",
+            }}
+          />
+
+          {/* TOP HEART */}
+          <div
+            style={{
+              position: "absolute",
+              top: window.innerWidth < 768 ? "145px" : "155px",
+              left: window.innerWidth < 768 ? "18px" : "40px",
+              fontSize: window.innerWidth < 768 ? "24px" : "28px",
+              animation: "floatIn 1.8s ease forwards",
+            }}
+          >
+            💖
+          </div>
+
+          {/* TOP SPARKLE */}
+          <div
+            style={{
+              position: "absolute",
+              top: window.innerWidth < 768 ? "180px" : "190px",
+              right: window.innerWidth < 768 ? "20px" : "60px",
+              fontSize: window.innerWidth < 768 ? "20px" : "24px",
+              animation: "floatIn 2s ease forwards",
+            }}
+          >
+            ✨
+          </div>
+
+          {/* BOTTOM BUTTERFLY */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: window.innerWidth < 768 ? "120px" : "120px",
+              left: window.innerWidth < 768 ? "28px" : "50px",
+              fontSize: window.innerWidth < 768 ? "24px" : "26px",
+              animation: "floatIn 2s ease forwards",
+            }}
+          >
+            🦋
+          </div>
+
+          {/* BOTTOM FLOWER */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: window.innerWidth < 768 ? "145px" : "150px",
+              right: window.innerWidth < 768 ? "25px" : "80px",
+              fontSize: window.innerWidth < 768 ? "20px" : "22px",
+              animation: "floatIn 2s ease forwards",
+            }}
+          >
+            🌸
+          </div>
+
+          {/* SITTING STICKER */}
+          <img
+            src={sittingTogether}
+            alt="sitting sticker"
+            style={{
+              position: "absolute",
+              bottom: window.innerWidth < 768 ? "150px" : "135px",
+              right: window.innerWidth < 768 ? "95px" : "330px",
+              width: window.innerWidth < 768 ? "88px" : "145px",
+              zIndex: 2,
+              animation: "floatIn 2s ease forwards",
+            }}
+          />
+        </>
+      )}
+
+      {/* COUNTDOWN */}
+
+      {showCountdown && (
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: window.innerWidth < 768 ? "75px" : "20px",
+            animation: "fadeDown 1s ease forwards",
+          }}
+        >
+          <h1
+            style={{
+              color: "#ff3fa4",
+              fontSize: window.innerWidth < 768 ? "2.3rem" : "2.7rem",
+              lineHeight: "1.15",
+              fontWeight: "700",
+              marginBottom: "18px",
+              padding: "0 10px",
+            }}
+          >
+            Counting down to my special day 🎂💖
+          </h1>
+
+          <p
+            style={{
+              color: "#555",
+              fontSize: window.innerWidth < 768 ? "0.95rem" : "1.05rem",
+              marginBottom: "42px",
+              padding: "0 15px",
+            }}
+          >
+            ...and a little surprise made with love ✨
+          </p>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: window.innerWidth < 768 ? "12px" : "20px",
+              flexWrap: "wrap",
+            }}
+          >
+            {[
+              { label: "Days", value: timeLeft.days },
+              { label: "Hours", value: timeLeft.hours },
+              { label: "Minutes", value: timeLeft.minutes },
+              { label: "Seconds", value: timeLeft.seconds },
+            ].map((item, index) => (
+              <div
+                key={index}
+                style={{
+                  background: "rgba(255,255,255,0.14)",
+                  backdropFilter: "blur(18px)",
+                  WebkitBackdropFilter: "blur(18px)",
+                  border: "1px solid rgba(255,255,255,0.28)",
+                  padding: window.innerWidth < 768 ? "14px 10px" : "14px 12px",
+                  borderRadius: "24px",
+                  width: window.innerWidth < 768 ? "88px" : "82px",
+                  boxShadow: "0 10px 30px rgba(255, 182, 193, 0.12)",
+                  animation: "flipCard 0.8s ease",
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                <h2
+                  key={item.value}
+                  style={{
+                    color: "#ff3fa4",
+                    fontSize: window.innerWidth < 768 ? "2rem" : "1.7rem",
+                    fontWeight: "600",
+                    letterSpacing: "1px",
+                    textShadow: "0 0 10px rgba(255,105,180,0.12)",
+                    margin: 0,
+                    animation: "flipNumber 0.6s ease",
+                    transformOrigin: "center",
+                    display: "inline-block",
+                  }}
+                >
+                  {String(item.value).padStart(2, "0")}
+                </h2>
+
+                <p
+                  style={{
+                    color: "#666",
+                    marginTop: "10px",
+                    fontSize: window.innerWidth < 768 ? "0.95rem" : "1rem",
+                  }}
+                >
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* MAIN CONTENT */}
+
+      {showMainContent && (
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: window.innerWidth < 768 ? "60px" : "70px",
+            animation: "fadeUp 1.5s ease forwards",
+          }}
+        >
+          <div style={{ fontSize: "36px" }}>💌</div>
+
+          <h1
+            style={{
+              fontSize: window.innerWidth < 768 ? "4.2rem" : "4.6rem",
+              lineHeight: "1.08",
+              color: "#ff3fa4",
+              fontFamily: "cursive",
+              margin: "20px 0",
+              textShadow: "0 3px 12px rgba(255, 105, 180, 0.22)",
+              padding: "0 10px",
+            }}
+          >
+            Hey birthday boyyy
+          </h1>
+
+          <div style={{ fontSize: "42px" }}>🎂💖</div>
+
+          <p
+            style={{
+              marginTop: "55px",
+              fontSize: window.innerWidth < 768 ? "1.5rem" : "1.45rem",
+              color: "#444",
+              padding: "0 15px",
+              lineHeight: "1.3",
+            }}
+          >
+            I made something really special for you...
+          </p>
+
+          <p
+            style={{
+              fontSize: window.innerWidth < 768 ? "1.4rem" : "1.3rem",
+              color: "#444",
+              marginTop: "2px",
+            }}
+          >
+            Wanna see it? ✨
+          </p>
+        </div>
+      )}
+
+      {/* BUTTONS */}
+
+      {showButtons && (
+        <>
+          <div
+            style={{
+              marginTop: "32px",
+              display: "flex",
+              justifyContent: "center",
+              gap: "20px",
+              flexWrap: "wrap",
+              animation: "fadeUp 2s ease forwards",
+            }}
+          >
+            <button
+              onClick={navigateBlocked}
+              style={{
+                padding: window.innerWidth < 768 ? "14px 30px" : "13px 28px",
+                width: window.innerWidth < 768 ? "82%" : "auto",
+                maxWidth: "320px",
+                borderRadius: "40px",
+                border: "none",
+                background: "linear-gradient(to right, #ff4fae, #ff66c4)",
+                color: "white",
+                fontSize: "1.05rem",
+                cursor: "pointer",
+                boxShadow: "0 10px 30px rgba(255, 105, 180, 0.22)",
+              }}
+            >
+              Yes, show me 💖
+            </button>
+
+            <button
+              onClick={navigateBlocked}
+              style={{
+                padding: window.innerWidth < 768 ? "13px 28px" : "12px 26px",
+                width: window.innerWidth < 768 ? "82%" : "auto",
+                maxWidth: "320px",
+                borderRadius: "40px",
+                border: "2px solid #ff7bc7",
+                background: "white",
+                color: "#ff4fae",
+                fontSize: "1.05rem",
+                cursor: "pointer",
+              }}
+            >
+              Nope 😏
+            </button>
+          </div>
+
+          {/* PREPARING TEXT */}
+
+          {showPreparing && (
+            <p
+              style={{
+                textAlign: "center",
+                marginTop: "32px",
+                color: "#ff3fa4",
+                fontWeight: "400",
+                opacity: 0.75,
+                fontSize: window.innerWidth < 768 ? "1.6rem" : "1.2rem",
+                animation: "fadeUp 1s ease forwards",
+                padding: "0 10px",
+              }}
+            >
+              Preparing your surprise... 💖✨
+            </p>
+          )}
+
+          {/* WARNING */}
+
+          <p
+            style={{
+              textAlign: "center",
+              marginTop: "24px",
+              color: "#666",
+              fontStyle: "italic",
+              fontSize: window.innerWidth < 768 ? "1rem" : "1.1rem",
+              animation: "fadeUp 2.2s ease forwards",
+              padding: "0 10px",
+            }}
+          >
+            (Choosing NO may have consequences 😌)
+          </p>
+        </>
+      )}
+
+      {/* ANIMATIONS */}
+
+      <style>
+        {`
+          @keyframes fadeDown {
+            from {
+              opacity: 0;
+              transform: translateY(-30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes fadeUp {
+            from {
+              opacity: 0;
+              transform: translateY(40px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes floatIn {
+            from {
+              opacity: 0;
+              transform: scale(0.7);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+          @keyframes flipCard {
+            0% {
+              transform: rotateX(90deg);
+              opacity: 0.4;
+            }
+
+            100% {
+              transform: rotateX(0deg);
+              opacity: 1;
+            }
+          }
+          @keyframes flipNumber {
+            0% {
+              transform: rotateX(90deg);
+              opacity: 0.3;
+            }
+
+            50% {
+              transform: rotateX(-10deg);
+            }
+
+            100% {
+              transform: rotateX(0deg);
+              opacity: 1;
+            }
+          }
+        `}
+      </style>
     </div>
   );
 }
+
+export default Home;
