@@ -244,7 +244,7 @@ function Home() {
             style={{
               position: "absolute",
               bottom: isMobile ? "430px" : "105px",
-              right: isMobile ? "88px" : "240px",
+              right: isMobile ? "58px" : "240px",
               width: isMobile ? "112px" : "145px",
               zIndex: 2,
 
