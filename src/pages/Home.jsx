@@ -150,11 +150,16 @@ function Home() {
             alt="hugging sticker"
             style={{
               position: "absolute",
-              top: window.innerWidth < 768 ? "145px" : "135px",
-              left: window.innerWidth < 768 ? "28px" : "260px",
-              width: window.innerWidth < 768 ? "72px" : "125px",
+              top: window.innerWidth < 768 ? "220px" : "145px",
+              left: window.innerWidth < 768 ? "18px" : "240px",
+              width: window.innerWidth < 768 ? "95px" : "125px",
               zIndex: 2,
-              animation: "floatIn 1.5s ease forwards",
+
+              opacity: showStickers ? 1 : 0,
+              transform: showStickers ? "translateY(0px)" : "translateY(20px)",
+
+              transition: "all 1.2s ease",
+              transitionDelay: "0.2s",
             }}
           />
 
@@ -162,10 +167,15 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              top: window.innerWidth < 768 ? "145px" : "155px",
+              top: window.innerWidth < 768 ? "250px" : "155px",
               left: window.innerWidth < 768 ? "18px" : "40px",
-              fontSize: window.innerWidth < 768 ? "24px" : "28px",
-              animation: "floatIn 1.8s ease forwards",
+              fontSize: window.innerWidth < 768 ? "34px" : "28px",
+
+              opacity: showStickers ? 1 : 0,
+              transform: showStickers ? "translateY(0px)" : "translateY(15px)",
+
+              transition: "all 1s ease",
+              transitionDelay: "0.5s",
             }}
           >
             💖
@@ -175,10 +185,15 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              top: window.innerWidth < 768 ? "180px" : "190px",
-              right: window.innerWidth < 768 ? "20px" : "60px",
-              fontSize: window.innerWidth < 768 ? "20px" : "24px",
-              animation: "floatIn 2s ease forwards",
+              top: window.innerWidth < 768 ? "330px" : "190px",
+              right: window.innerWidth < 768 ? "18px" : "60px",
+              fontSize: window.innerWidth < 768 ? "28px" : "24px",
+
+              opacity: showStickers ? 1 : 0,
+              transform: showStickers ? "translateY(0px)" : "translateY(15px)",
+
+              transition: "all 1.2s ease",
+              transitionDelay: "0.8s",
             }}
           >
             ✨
@@ -188,10 +203,15 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              bottom: window.innerWidth < 768 ? "120px" : "120px",
-              left: window.innerWidth < 768 ? "28px" : "50px",
-              fontSize: window.innerWidth < 768 ? "24px" : "26px",
-              animation: "floatIn 2s ease forwards",
+              bottom: window.innerWidth < 768 ? "145px" : "120px",
+              left: window.innerWidth < 768 ? "25px" : "50px",
+              fontSize: window.innerWidth < 768 ? "28px" : "26px",
+
+              opacity: showStickers ? 1 : 0,
+              transform: showStickers ? "translateY(0px)" : "translateY(15px)",
+
+              transition: "all 1.3s ease",
+              transitionDelay: "1.1s",
             }}
           >
             🦋
@@ -201,10 +221,15 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              bottom: window.innerWidth < 768 ? "145px" : "150px",
-              right: window.innerWidth < 768 ? "25px" : "80px",
-              fontSize: window.innerWidth < 768 ? "20px" : "22px",
-              animation: "floatIn 2s ease forwards",
+              bottom: window.innerWidth < 768 ? "120px" : "150px",
+              right: window.innerWidth < 768 ? "18px" : "80px",
+              fontSize: window.innerWidth < 768 ? "22px" : "22px",
+
+              opacity: showStickers ? 1 : 0,
+              transform: showStickers ? "translateY(0px)" : "translateY(15px)",
+
+              transition: "all 1.4s ease",
+              transitionDelay: "1.4s",
             }}
           >
             🌸
@@ -216,11 +241,16 @@ function Home() {
             alt="sitting sticker"
             style={{
               position: "absolute",
-              bottom: window.innerWidth < 768 ? "150px" : "135px",
-              right: window.innerWidth < 768 ? "95px" : "330px",
-              width: window.innerWidth < 768 ? "88px" : "145px",
+              bottom: window.innerWidth < 768 ? "130px" : "105px",
+              right: window.innerWidth < 768 ? "95px" : "240px",
+              width: window.innerWidth < 768 ? "95px" : "145px",
               zIndex: 2,
-              animation: "floatIn 2s ease forwards",
+
+              opacity: showStickers ? 1 : 0,
+              transform: showStickers ? "translateY(0px)" : "translateY(20px)",
+
+              transition: "all 1.5s ease",
+              transitionDelay: "1.7s",
             }}
           />
         </>
@@ -232,14 +262,14 @@ function Home() {
         <div
           style={{
             textAlign: "center",
-            marginTop: window.innerWidth < 768 ? "75px" : "20px",
+            marginTop: window.innerWidth < 768 ? "90px" : "35px",
             animation: "fadeDown 1s ease forwards",
           }}
         >
           <h1
             style={{
               color: "#ff3fa4",
-              fontSize: window.innerWidth < 768 ? "2.3rem" : "2.7rem",
+              fontSize: window.innerWidth < 768 ? "2.5rem" : "3.6rem",
               lineHeight: "1.15",
               fontWeight: "700",
               marginBottom: "18px",
@@ -253,7 +283,7 @@ function Home() {
             style={{
               color: "#555",
               fontSize: window.innerWidth < 768 ? "0.95rem" : "1.05rem",
-              marginBottom: "42px",
+              marginBottom: "30px",
               padding: "0 15px",
             }}
           >
@@ -277,10 +307,10 @@ function Home() {
               <div
                 key={index}
                 style={{
-                  background: "rgba(255,255,255,0.14)",
+                  background: "rgba(255,255,255,0.32)",
                   backdropFilter: "blur(18px)",
                   WebkitBackdropFilter: "blur(18px)",
-                  border: "1px solid rgba(255,255,255,0.28)",
+                  border: "1px solid rgba(255,255,255,0.5)",
                   padding: window.innerWidth < 768 ? "14px 10px" : "14px 12px",
                   borderRadius: "24px",
                   width: window.innerWidth < 768 ? "88px" : "82px",
@@ -327,7 +357,7 @@ function Home() {
         <div
           style={{
             textAlign: "center",
-            marginTop: window.innerWidth < 768 ? "60px" : "70px",
+            marginTop: window.innerWidth < 768 ? "25px" : "25px",
             animation: "fadeUp 1.5s ease forwards",
           }}
         >
@@ -335,7 +365,7 @@ function Home() {
 
           <h1
             style={{
-              fontSize: window.innerWidth < 768 ? "4.2rem" : "4.6rem",
+              fontSize: window.innerWidth < 768 ? "3.3rem" : "3.9rem",
               lineHeight: "1.08",
               color: "#ff3fa4",
               fontFamily: "cursive",
@@ -379,7 +409,7 @@ function Home() {
         <>
           <div
             style={{
-              marginTop: "32px",
+              marginTop: "45px",
               display: "flex",
               justifyContent: "center",
               gap: "20px",
@@ -391,7 +421,7 @@ function Home() {
               onClick={navigateBlocked}
               style={{
                 padding: window.innerWidth < 768 ? "14px 30px" : "13px 28px",
-                width: window.innerWidth < 768 ? "82%" : "auto",
+                width: window.innerWidth < 768 ? "74%" : "auto",
                 maxWidth: "320px",
                 borderRadius: "40px",
                 border: "none",
@@ -409,7 +439,7 @@ function Home() {
               onClick={navigateBlocked}
               style={{
                 padding: window.innerWidth < 768 ? "13px 28px" : "12px 26px",
-                width: window.innerWidth < 768 ? "82%" : "auto",
+                width: window.innerWidth < 768 ? "74%" : "auto",
                 maxWidth: "320px",
                 borderRadius: "40px",
                 border: "2px solid #ff7bc7",
@@ -429,7 +459,7 @@ function Home() {
             <p
               style={{
                 textAlign: "center",
-                marginTop: "32px",
+                marginTop: "20px",
                 color: "#ff3fa4",
                 fontWeight: "400",
                 opacity: 0.75,
@@ -447,7 +477,7 @@ function Home() {
           <p
             style={{
               textAlign: "center",
-              marginTop: "24px",
+              marginTop: "8px",
               color: "#666",
               fontStyle: "italic",
               fontSize: window.innerWidth < 768 ? "1rem" : "1.1rem",
@@ -483,17 +513,6 @@ function Home() {
             to {
               opacity: 1;
               transform: translateY(0);
-            }
-          }
-
-          @keyframes floatIn {
-            from {
-              opacity: 0;
-              transform: scale(0.7);
-            }
-            to {
-              opacity: 1;
-              transform: scale(1);
             }
           }
           @keyframes flipCard {
