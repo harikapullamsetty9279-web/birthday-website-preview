@@ -154,7 +154,7 @@ function Home() {
               position: "absolute",
               top: isMobile ? "500px" : "145px",
               left: isMobile ? "6px" : "240px",
-              width: isMobile ? "82px" : "125px",
+              width: isMobile ? "112px" : "125px",
               zIndex: 2,
 
               opacity: showStickers ? 1 : 0,
@@ -243,8 +243,8 @@ function Home() {
             alt="sitting sticker"
             style={{
               position: "absolute",
-              bottom: isMobile ? "430px" : "105px",
-              right: isMobile ? "58px" : "240px",
+              bottom: isMobile ? "390px" : "105px",
+              right: isMobile ? "38px" : "240px",
               width: isMobile ? "112px" : "145px",
               zIndex: 2,
 
