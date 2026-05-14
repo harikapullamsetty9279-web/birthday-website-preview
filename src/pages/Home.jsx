@@ -152,9 +152,9 @@ function Home() {
             alt="hugging sticker"
             style={{
               position: "absolute",
-              top: isMobile ? "240px" : "145px",
-              left: isMobile ? "8px" : "240px",
-              width: isMobile ? "82px" : "125px",
+              top: isMobile ? "365px" : "145px",
+              left: isMobile ? "-4px" : "240px",
+              width: isMobile ? "88px" : "125px",
               zIndex: 2,
 
               opacity: showStickers ? 1 : 0,
@@ -169,9 +169,9 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              top: isMobile ? "250px" : "155px",
-              left: isMobile ? "18px" : "40px",
-              fontSize: isMobile ? "34px" : "28px",
+              top: isMobile ? "410px" : "155px",
+              left: isMobile ? "6px" : "40px",
+              fontSize: isMobile ? "30px" : "28px",
 
               opacity: showStickers ? 1 : 0,
               transform: showStickers ? "translateY(0px)" : "translateY(15px)",
@@ -187,9 +187,9 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              top: isMobile ? "330px" : "190px",
-              right: isMobile ? "18px" : "60px",
-              fontSize: isMobile ? "28px" : "24px",
+              top: isMobile ? "585px" : "190px",
+              right: isMobile ? "12px" : "60px",
+              fontSize: isMobile ? "26px" : "24px",
 
               opacity: showStickers ? 1 : 0,
               transform: showStickers ? "translateY(0px)" : "translateY(15px)",
@@ -205,9 +205,9 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              bottom: isMobile ? "145px" : "120px",
-              left: isMobile ? "25px" : "50px",
-              fontSize: isMobile ? "28px" : "26px",
+              bottom: isMobile ? "185px" : "120px",
+              left: isMobile ? "18px" : "50px",
+              fontSize: isMobile ? "26px" : "26px",
 
               opacity: showStickers ? 1 : 0,
               transform: showStickers ? "translateY(0px)" : "translateY(15px)",
@@ -223,9 +223,9 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              bottom: isMobile ? "120px" : "150px",
-              right: isMobile ? "18px" : "80px",
-              fontSize: isMobile ? "22px" : "22px",
+              bottom: isMobile ? "185px" : "150px",
+              right: isMobile ? "10px" : "80px",
+              fontSize: isMobile ? "20px" : "22px",
 
               opacity: showStickers ? 1 : 0,
               transform: showStickers ? "translateY(0px)" : "translateY(15px)",
@@ -243,9 +243,9 @@ function Home() {
             alt="sitting sticker"
             style={{
               position: "absolute",
-              bottom: isMobile ? "130px" : "105px",
-              right: isMobile ? "95px" : "240px",
-              width: isMobile ? "95px" : "145px",
+              bottom: isMobile ? "195px" : "105px",
+              right: isMobile ? "88px" : "240px",
+              width: isMobile ? "92px" : "145px",
               zIndex: 2,
 
               opacity: showStickers ? 1 : 0,
@@ -264,7 +264,7 @@ function Home() {
         <div
           style={{
             textAlign: "center",
-            marginTop: isMobile ? "90px" : "35px",
+            marginTop: isMobile ? "120px" : "35px",
             animation: "fadeDown 1s ease forwards",
           }}
         >
