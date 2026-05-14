@@ -243,7 +243,7 @@ function Home() {
             alt="sitting sticker"
             style={{
               position: "absolute",
-              top: isMobile ? "820px" : undefined,
+              top: isMobile ? "700px" : undefined,
               bottom: isMobile ? undefined : "105px",
               right: isMobile ? "38px" : "240px",
               width: isMobile ? "112px" : "145px",
