@@ -243,9 +243,9 @@ function Home() {
             alt="sitting sticker"
             style={{
               position: "absolute",
-              bottom: isMobile ? "250px" : "105px",
-              right: isMobile ? "105px" : "240px",
-              width: isMobile ? "84px" : "145px",
+              bottom: isMobile ? "430px" : "105px",
+              right: isMobile ? "88px" : "240px",
+              width: isMobile ? "112px" : "145px",
               zIndex: 2,
 
               opacity: showStickers ? 1 : 0,
