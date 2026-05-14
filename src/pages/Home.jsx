@@ -152,9 +152,9 @@ function Home() {
             alt="hugging sticker"
             style={{
               position: "absolute",
-              top: isMobile ? "365px" : "145px",
-              left: isMobile ? "-4px" : "240px",
-              width: isMobile ? "88px" : "125px",
+              top: isMobile ? "500px" : "145px",
+              left: isMobile ? "6px" : "240px",
+              width: isMobile ? "82px" : "125px",
               zIndex: 2,
 
               opacity: showStickers ? 1 : 0,
@@ -243,9 +243,9 @@ function Home() {
             alt="sitting sticker"
             style={{
               position: "absolute",
-              bottom: isMobile ? "195px" : "105px",
-              right: isMobile ? "88px" : "240px",
-              width: isMobile ? "92px" : "145px",
+              bottom: isMobile ? "250px" : "105px",
+              right: isMobile ? "105px" : "240px",
+              width: isMobile ? "84px" : "145px",
               zIndex: 2,
 
               opacity: showStickers ? 1 : 0,
