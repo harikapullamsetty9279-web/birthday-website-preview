@@ -4,6 +4,8 @@ import sittingTogether from "../assets/stickers/sitting_together-removebg-previe
 import huggingSticker from "../assets/stickers/hugging-removebg-preview.png";
 
 function Home() {
+  const isMobile = window.innerWidth < 768;
+
   const navigateBlocked = () => {
     setShowPreparing(true);
   };
@@ -125,15 +127,15 @@ function Home() {
         onClick={toggleMusic}
         style={{
           position: "fixed",
-          top: window.innerWidth < 768 ? "18px" : "32px",
-          right: window.innerWidth < 768 ? "18px" : "20px",
-          padding: window.innerWidth < 768 ? "12px 18px" : "12px 20px",
+          top: isMobile ? "18px" : "32px",
+          right: isMobile ? "18px" : "20px",
+          padding: isMobile ? "12px 18px" : "12px 20px",
           borderRadius: "30px",
           border: "none",
           background: "white",
           boxShadow: "0 6px 18px rgba(0,0,0,0.12)",
           cursor: "pointer",
-          fontSize: window.innerWidth < 768 ? "15px" : "16px",
+          fontSize: isMobile ? "15px" : "16px",
           zIndex: 999,
         }}
       >
@@ -150,9 +152,9 @@ function Home() {
             alt="hugging sticker"
             style={{
               position: "absolute",
-              top: window.innerWidth < 768 ? "220px" : "145px",
-              left: window.innerWidth < 768 ? "18px" : "240px",
-              width: window.innerWidth < 768 ? "95px" : "125px",
+              top: isMobile ? "240px" : "145px",
+              left: isMobile ? "8px" : "240px",
+              width: isMobile ? "82px" : "125px",
               zIndex: 2,
 
               opacity: showStickers ? 1 : 0,
@@ -167,9 +169,9 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              top: window.innerWidth < 768 ? "250px" : "155px",
-              left: window.innerWidth < 768 ? "18px" : "40px",
-              fontSize: window.innerWidth < 768 ? "34px" : "28px",
+              top: isMobile ? "250px" : "155px",
+              left: isMobile ? "18px" : "40px",
+              fontSize: isMobile ? "34px" : "28px",
 
               opacity: showStickers ? 1 : 0,
               transform: showStickers ? "translateY(0px)" : "translateY(15px)",
@@ -185,9 +187,9 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              top: window.innerWidth < 768 ? "330px" : "190px",
-              right: window.innerWidth < 768 ? "18px" : "60px",
-              fontSize: window.innerWidth < 768 ? "28px" : "24px",
+              top: isMobile ? "330px" : "190px",
+              right: isMobile ? "18px" : "60px",
+              fontSize: isMobile ? "28px" : "24px",
 
               opacity: showStickers ? 1 : 0,
               transform: showStickers ? "translateY(0px)" : "translateY(15px)",
@@ -203,9 +205,9 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              bottom: window.innerWidth < 768 ? "145px" : "120px",
-              left: window.innerWidth < 768 ? "25px" : "50px",
-              fontSize: window.innerWidth < 768 ? "28px" : "26px",
+              bottom: isMobile ? "145px" : "120px",
+              left: isMobile ? "25px" : "50px",
+              fontSize: isMobile ? "28px" : "26px",
 
               opacity: showStickers ? 1 : 0,
               transform: showStickers ? "translateY(0px)" : "translateY(15px)",
@@ -221,9 +223,9 @@ function Home() {
           <div
             style={{
               position: "absolute",
-              bottom: window.innerWidth < 768 ? "120px" : "150px",
-              right: window.innerWidth < 768 ? "18px" : "80px",
-              fontSize: window.innerWidth < 768 ? "22px" : "22px",
+              bottom: isMobile ? "120px" : "150px",
+              right: isMobile ? "18px" : "80px",
+              fontSize: isMobile ? "22px" : "22px",
 
               opacity: showStickers ? 1 : 0,
               transform: showStickers ? "translateY(0px)" : "translateY(15px)",
@@ -241,9 +243,9 @@ function Home() {
             alt="sitting sticker"
             style={{
               position: "absolute",
-              bottom: window.innerWidth < 768 ? "130px" : "105px",
-              right: window.innerWidth < 768 ? "95px" : "240px",
-              width: window.innerWidth < 768 ? "95px" : "145px",
+              bottom: isMobile ? "130px" : "105px",
+              right: isMobile ? "95px" : "240px",
+              width: isMobile ? "95px" : "145px",
               zIndex: 2,
 
               opacity: showStickers ? 1 : 0,
@@ -262,18 +264,20 @@ function Home() {
         <div
           style={{
             textAlign: "center",
-            marginTop: window.innerWidth < 768 ? "90px" : "35px",
+            marginTop: isMobile ? "90px" : "35px",
             animation: "fadeDown 1s ease forwards",
           }}
         >
           <h1
             style={{
               color: "#ff3fa4",
-              fontSize: window.innerWidth < 768 ? "2.5rem" : "3.6rem",
-              lineHeight: "1.15",
+              fontSize: isMobile ? "1.85rem" : "2.9rem",
+              lineHeight: isMobile ? "1.15" : "1.12",
               fontWeight: "700",
               marginBottom: "18px",
               padding: "0 10px",
+              maxWidth: isMobile ? "320px" : "none",
+              margin: "0 auto 18px",
             }}
           >
             Counting down to my special day 🎂💖
@@ -282,8 +286,8 @@ function Home() {
           <p
             style={{
               color: "#555",
-              fontSize: window.innerWidth < 768 ? "0.95rem" : "1.05rem",
-              marginBottom: "30px",
+              fontSize: isMobile ? "0.9rem" : "1.05rem",
+              marginBottom: isMobile ? "34px" : "34px",
               padding: "0 15px",
             }}
           >
@@ -294,7 +298,7 @@ function Home() {
             style={{
               display: "flex",
               justifyContent: "center",
-              gap: window.innerWidth < 768 ? "12px" : "20px",
+              gap: isMobile ? "12px" : "20px",
               flexWrap: "wrap",
             }}
           >
@@ -311,9 +315,9 @@ function Home() {
                   backdropFilter: "blur(18px)",
                   WebkitBackdropFilter: "blur(18px)",
                   border: "1px solid rgba(255,255,255,0.5)",
-                  padding: window.innerWidth < 768 ? "14px 10px" : "14px 12px",
+                  padding: isMobile ? "12px 8px" : "14px 12px",
                   borderRadius: "24px",
-                  width: window.innerWidth < 768 ? "88px" : "82px",
+                  width: isMobile ? "82px" : "82px",
                   boxShadow: "0 10px 30px rgba(255, 182, 193, 0.12)",
                   animation: "flipCard 0.8s ease",
                   transformStyle: "preserve-3d",
@@ -323,7 +327,7 @@ function Home() {
                   key={item.value}
                   style={{
                     color: "#ff3fa4",
-                    fontSize: window.innerWidth < 768 ? "2rem" : "1.7rem",
+                    fontSize: isMobile ? "2rem" : "1.7rem",
                     fontWeight: "600",
                     letterSpacing: "1px",
                     textShadow: "0 0 10px rgba(255,105,180,0.12)",
@@ -340,7 +344,7 @@ function Home() {
                   style={{
                     color: "#666",
                     marginTop: "10px",
-                    fontSize: window.innerWidth < 768 ? "0.95rem" : "1rem",
+                    fontSize: isMobile ? "0.95rem" : "1rem",
                   }}
                 >
                   {item.label}
@@ -357,7 +361,7 @@ function Home() {
         <div
           style={{
             textAlign: "center",
-            marginTop: window.innerWidth < 768 ? "25px" : "25px",
+            marginTop: isMobile ? "25px" : "25px",
             animation: "fadeUp 1.5s ease forwards",
           }}
         >
@@ -365,8 +369,11 @@ function Home() {
 
           <h1
             style={{
-              fontSize: window.innerWidth < 768 ? "3.3rem" : "3.9rem",
-              lineHeight: "1.08",
+              fontSize: isMobile ? "2.2rem" : "3.4rem",
+              lineHeight: isMobile ? "1.15" : "1.05",
+              maxWidth: isMobile ? "320px" : "none",
+              marginLeft: "auto",
+              marginRight: "auto",
               color: "#ff3fa4",
               fontFamily: "cursive",
               margin: "20px 0",
@@ -382,7 +389,7 @@ function Home() {
           <p
             style={{
               marginTop: "55px",
-              fontSize: window.innerWidth < 768 ? "1.5rem" : "1.45rem",
+              fontSize: isMobile ? "1.5rem" : "1.45rem",
               color: "#444",
               padding: "0 15px",
               lineHeight: "1.3",
@@ -393,7 +400,7 @@ function Home() {
 
           <p
             style={{
-              fontSize: window.innerWidth < 768 ? "1.4rem" : "1.3rem",
+              fontSize: isMobile ? "1.4rem" : "1.3rem",
               color: "#444",
               marginTop: "2px",
             }}
@@ -409,7 +416,7 @@ function Home() {
         <>
           <div
             style={{
-              marginTop: "45px",
+              marginTop: isMobile ? "34px" : "42px",
               display: "flex",
               justifyContent: "center",
               gap: "20px",
@@ -420,8 +427,8 @@ function Home() {
             <button
               onClick={navigateBlocked}
               style={{
-                padding: window.innerWidth < 768 ? "14px 30px" : "13px 28px",
-                width: window.innerWidth < 768 ? "74%" : "auto",
+                padding: isMobile ? "12px 24px" : "13px 28px",
+                width: isMobile ? "82%" : "auto",
                 maxWidth: "320px",
                 borderRadius: "40px",
                 border: "none",
@@ -438,8 +445,8 @@ function Home() {
             <button
               onClick={navigateBlocked}
               style={{
-                padding: window.innerWidth < 768 ? "13px 28px" : "12px 26px",
-                width: window.innerWidth < 768 ? "74%" : "auto",
+                padding: isMobile ? "10px 20px" : "12px 26px",
+                width: isMobile ? "82%" : "auto",
                 maxWidth: "320px",
                 borderRadius: "40px",
                 border: "2px solid #ff7bc7",
@@ -463,7 +470,7 @@ function Home() {
                 color: "#ff3fa4",
                 fontWeight: "400",
                 opacity: 0.75,
-                fontSize: window.innerWidth < 768 ? "1.6rem" : "1.2rem",
+                fontSize: isMobile ? "1.6rem" : "1.2rem",
                 animation: "fadeUp 1s ease forwards",
                 padding: "0 10px",
               }}
@@ -480,7 +487,11 @@ function Home() {
               marginTop: "8px",
               color: "#666",
               fontStyle: "italic",
-              fontSize: window.innerWidth < 768 ? "1rem" : "1.1rem",
+              fontSize: isMobile ? "0.82rem" : "1.02rem",
+              maxWidth: "340px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              lineHeight: "1.4",
               animation: "fadeUp 2.2s ease forwards",
               padding: "0 10px",
             }}
